@@ -8,9 +8,10 @@
         <div class="row">
           <div class="col-md-3">
             <select class="custom-select filter_role">
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              <option value="1"
+              v-for="role of selectRoles"
+              :key="role.title"
+              >{{role.title}}</option>
             </select>
           </div>
           
@@ -25,13 +26,17 @@
 
           <div class="col-md-3">
             <div class="filter_addbutton">
-              <button type="button" class="btn btn-success">Success</button>
+              <button type="button" class="btn btn-success"
+              @click="updateTest([{title: 'test'}])"
+
+              >Success</button>
             </div>
           </div>
 
         </div>
 
       </div>
+      <!-- /.filter -->
 
       <div class="stafftable">
         <table class="table">
@@ -46,12 +51,12 @@
           <tbody>
         
             <tr
-            v-for="i in 3"
+            v-for="i in selectStaff"
             >
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+              <th scope="row">{{i.id}}</th>
+              <td>{{i.name}}</td>
+              <td>{{i.role}}</td>
+              <td>{{i.phone}}</td>
             </tr>
         
           </tbody>
@@ -70,15 +75,45 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      staff: []
     }
+  },
+  methods: {
+      updateTest(val) {
+        this.$store.dispatch('assyncSetStaff', val
+        )
+      }
+  },
+  computed: {
+    
+    selectRoles() {
+      return this.$store.getters.getRoles
+    },
+    selectStaff() {
+      return this.$store.getters.getStaff
+    }
+  },
+  created() {
+
+    //запись из api to vuex
+    this.resource = this.$resource('staff')
+    this.resource.get().then(response => response.json())
+    .then(staff => this.$store.dispatch('assyncSetStaff', staff))
   }
 }
+
 </script>
 
 <style lang="sass">
 
+html
+
 .filter
+  padding: 50px 0 15px 0
+  &_isarchive
+    height: 100%
+    vertical-align: center
   &_addbutton
     text-align: right
 
