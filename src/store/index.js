@@ -6,23 +6,36 @@ Vue.use(Vuex)
 export default new Vuex.Store({
 	state: {
 		roles: [
-			{title: 'Повар'},
-			{title: 'Официант'},
-			{title: 'Водитель'}
+			{title: 'Повар', dbtitle: 'cook'},
+			{title: 'Официант', dbtitle: 'waiter'},
+			{title: 'Водитель', dbtitle: 'driver'}
 		],
-		staff: null
+		staff: [],
+		test: [
+			{title: 'Повар', dbtitle: 'cook'},
+			{title: 'Официант', dbtitle: 'waiter'},
+			{title: 'Водитель', dbtitle: 'driver'}
+		],
+		archive: false
 
 	},
 
 	mutations: {
-	    setStaff(state, payload) {
-	      state.staff = payload;
+	    setStaffFromApi(state, payload) {
+	      state.staff = payload
+	    },
+	    setArchiveM(state, payload) {
+	    	state.archive = payload
 	    }
 	},
 
     actions: {
 		assyncSetStaff(context, payload) {
-				context.commit('setStaff', payload)
+			context.commit('setStaffFromApi', payload)
+		},
+		setArchive(context,payload) {
+			context.commit('setArchiveM', payload)
+			console.log(payload)
 		}
 	},
 
@@ -31,7 +44,18 @@ export default new Vuex.Store({
 			return state.roles
 		},
 		getStaff(state) {
-			return state.staff
+			return state.staff.filter(function(item){
+				return item.isArchive==state.archive
+			})
+		},
+		getTest(state) {
+			return state.test.filter(function(number){
+				return number.dbtitle=="cook"
+			})
+		},
+
+		getArchive(state) {
+			return state.archive
 		}
 	}
 })

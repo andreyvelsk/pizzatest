@@ -3,22 +3,26 @@
 
     <div class="container">
 
+      {{selectTest}}
       <div class="filter">
 
         <div class="row">
           <div class="col-md-3">
-            <select class="custom-select filter_role">
+            <select class="custom-select filter_role"
+            >
               <option value="1"
               v-for="role of selectRoles"
-              :key="role.title"
+              :key="role.dbtitle"
               >{{role.title}}</option>
             </select>
           </div>
           
           <div class="col-md-3">
             <div class="custom-control custom-checkbox filter_isarchive">
-              <input type="checkbox" class="custom-control-input" id="customCheck1">
-              <label class="custom-control-label" for="customCheck1">В архиве</label>
+              <input type="checkbox" class="custom-control-input" id="archiveCheck"
+              v-model="archiveCheckbox"
+              >
+              <label class="custom-control-label" for="archiveCheck">В архиве</label>
             </div>
           </div>
 
@@ -26,10 +30,7 @@
 
           <div class="col-md-3">
             <div class="filter_addbutton">
-              <button type="button" class="btn btn-success"
-              @click="updateTest([{title: 'test'}])"
-
-              >Success</button>
+              <button type="button" class="btn btn-success">Success</button>
             </div>
           </div>
 
@@ -51,9 +52,9 @@
           <tbody>
         
             <tr
-            v-for="i in selectStaff"
+            v-for="(i, index) in selectStaff"
             >
-              <th scope="row">{{i.id}}</th>
+              <th scope="row">{{index+1}}</th>
               <td>{{i.name}}</td>
               <td>{{i.role}}</td>
               <td>{{i.phone}}</td>
@@ -72,26 +73,32 @@
 
 <script>
 export default {
-  name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      staff: []
+      selected: ''
     }
   },
   methods: {
-      updateTest(val) {
-        this.$store.dispatch('assyncSetStaff', val
-        )
-      }
+
   },
   computed: {
-    
+
     selectRoles() {
       return this.$store.getters.getRoles
     },
     selectStaff() {
       return this.$store.getters.getStaff
+    },
+    archiveCheckbox: {
+      get() {
+        return this.$store.getters.getArchive
+      },
+      set(value) {
+        this.$store.dispatch('setArchive', value)
+      }
+    },
+    selectTest() {
+      return this.$store.getters.getTest
     }
   },
   created() {
