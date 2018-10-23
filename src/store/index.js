@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import staff from './staff'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+	modules: {
+		//staff
+	},
 	state: {
 		roles: [
 			{title: 'Повар', dbtitle: 'cook'},
@@ -17,33 +21,36 @@ export default new Vuex.Store({
 			{title: 'Водитель', dbtitle: 'driver'}
 		],
 		archive: false,
-		currentRole: 'driver'
-
+		currentRole: 'cook'
 	},
 
 	mutations: {
 	    setStaffFromApi(state, payload) {
 	      state.staff = payload
+	      console.log("Загружены данные из db.json")
 	    },
 	    setArchiveM(state, payload) {
 	    	state.archive = payload
+	    	console.log("archive state: " + payload)
 	    },
 	    setCurrentRoleM(state, payload) {
 	    	state.currentRole = payload
+	    	console.log("current role: " + payload)
 	    }
 	},
 
     actions: {
 		assyncSetStaff(context, payload) {
 			context.commit('setStaffFromApi', payload)
+
 		},
 		setArchive(context,payload) {
 			context.commit('setArchiveM', payload)
-			console.log("archive state: " + payload)
+			
 		},
 		setCurrentRole(context,payload) {
 			context.commit('setCurrentRoleM', payload)
-			console.log("cuurent role: " + payload)
+			
 		},
 	},
 

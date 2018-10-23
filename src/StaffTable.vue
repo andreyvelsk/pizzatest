@@ -1,0 +1,50 @@
+<template>
+	<div class="stafftable">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Имя</th>
+              <th scope="col">Должность</th>
+              <th scope="col">Телефон</th>
+            </tr>
+          </thead>
+          <tbody>
+        
+            <tr
+            v-for="(i, index) in selectStaff"
+            >
+              <th scope="row">{{index+1}}</th>
+              <td>{{i.name}}</td>
+              <td>{{i.role}}</td>
+              <td>{{i.phone}}</td>
+            </tr>
+        
+          </tbody>
+        </table>
+      </div>
+      <!-- /.stafftable -->
+</template>
+
+<script>
+	export default {
+		computed: {
+
+			selectStaff() {
+      return this.$store.getters.getStaff
+      }
+   	},
+	  created() {
+      console.log("created")
+	    //запись из api to vuex
+	    this.resource = this.$resource('staff')
+	    this.resource.get().then(response => response.json())
+	    .then(staff => this.$store.dispatch('assyncSetStaff', staff))
+	  	}
+	}
+</script>
+
+<style>
+	
+</style>
