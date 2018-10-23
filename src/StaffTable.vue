@@ -14,6 +14,8 @@
         
             <tr
             v-for="(i, index) in selectStaff"
+            :to="'worker/'+i.index"
+            :key="i.index"
             >
               <th scope="row">{{index+1}}</th>
               <td>{{i.name}}</td>

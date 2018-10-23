@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import Vuex from 'vuex';
 import VueResource from 'vue-resource'
@@ -20,6 +21,7 @@ Vue.http.interceptors.push(request => {
 
 new Vue({
   el: '#app',
+  router,
   store,
   render: h => h(App)
 })
