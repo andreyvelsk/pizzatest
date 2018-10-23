@@ -1,12 +1,14 @@
 <template>
 	<div class="filter">
+
         <div class="row">
           <div class="col-md-3">
             <select class="custom-select filter_role"
             v-model="roleSelect"
             >
-              <option v-bind:value="role.dbtitle"
+              <option 
               v-for="role of selectRoles"
+              v-bind:value="role.dbtitle"
               :key="role.dbtitle"
               >{{role.title}}</option>
             </select>
@@ -68,6 +70,7 @@
 	      }
 	    },
 	    selectTest() {
+
 	      return this.$store.getters.getTest
 	    }
 	  }

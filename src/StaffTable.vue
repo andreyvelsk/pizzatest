@@ -18,7 +18,7 @@
               <th scope="row">{{index+1}}</th>
               <td>{{i.name}}</td>
               <td>{{i.role}}</td>
-              <td>{{i.phone}}</td>
+              <td>{{i.birthday}}</td>
             </tr>
         
           </tbody>
@@ -30,7 +30,6 @@
 <script>
 	export default {
 		computed: {
-
 			selectStaff() {
       return this.$store.getters.getStaff
       }

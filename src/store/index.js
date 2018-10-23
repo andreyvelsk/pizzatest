@@ -20,8 +20,14 @@ export default new Vuex.Store({
 			{title: 'Официант', dbtitle: 'waiter'},
 			{title: 'Водитель', dbtitle: 'driver'}
 		],
-		archive: false,
-		currentRole: 'cook'
+		sort: [
+			{title: 'Имя', value: true},
+			{title: 'Дата', value: false},
+		],
+		archive: true,
+		currentRole: 'waiter',
+		sortByName: true,
+		ascSort: true
 	},
 
 	mutations: {
@@ -36,6 +42,14 @@ export default new Vuex.Store({
 	    setCurrentRoleM(state, payload) {
 	    	state.currentRole = payload
 	    	console.log("current role: " + payload)
+	    },
+	    setAscSortM(state, payload) {
+	    	state.ascSort = payload
+	    	console.log("asc sort: "+state.ascSort)
+	    },
+	    setCurrentSortM(state, payload) {
+	    	state.sortByName = payload
+	    	console.log("current sort: " + payload)
 	    }
 	},
 
@@ -52,28 +66,82 @@ export default new Vuex.Store({
 			context.commit('setCurrentRoleM', payload)
 			
 		},
+		setAscSort (context, payload) {
+			context.commit('setAscSortM', payload)
+		},
+		setCurrentSort(context, payload) {
+			context.commit('setCurrentSortM', payload)
+		}
 	},
 
 	getters: {
-		getRoles(state) {
-			return state.roles
-		},
+
 		getStaff(state) {
-			return state.staff.filter(function(item){
+
+			function compareName(a,b) {
+			  if (a.name < b.name)
+			    return -1;
+			  if (a.name > b.name)
+			    return 1;
+			  return 0;
+			}
+
+			function toDate(dateStr) {
+			  const [day, month, year] = dateStr.split(".")
+			  return new Date(year, month - 1, day)
+			}
+
+			function compareDate(a,b) {
+				let d1 = toDate(a.birthday)
+				let d2 = toDate(b.birthday)
+
+				if (d1 > d2) return 1
+  			if (d1 < d2) return -1
+  			return 0
+			}
+
+			let result = state.staff.filter(function(item){
 				return item.isArchive==state.archive && item.role==state.currentRole
 			})
+
+			if(state.sortByName)
+				result.sort(compareName)
+			else
+				result.sort(compareDate)
+
+			if(!state.ascSort)
+				result.reverse()
+
+			return result
 		},
-		getTest(state) {
-			return state.test.filter(function(number){
-				return number.dbtitle=="cook"
-			})
+		getTest(state,getters) {
+
+			return getters.getStaff
+
 		},
 
 		getArchive(state) {
 			return state.archive
 		},
+		getRoles(state) {
+			return state.roles
+		},
 		getCurrentRole(state) {
 			return state.currentRole
+		},
+
+		getAscSort(state) {
+			return state.ascSort
+		},
+
+		getSorts(state) {
+			return state.sort
+		},
+
+		getCurrentSort (state) {
+			return state.sortByName
 		}
+
+
 	}
 })
