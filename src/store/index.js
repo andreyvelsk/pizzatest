@@ -16,7 +16,8 @@ export default new Vuex.Store({
 			{title: 'Официант', dbtitle: 'waiter'},
 			{title: 'Водитель', dbtitle: 'driver'}
 		],
-		archive: false
+		archive: false,
+		currentRole: 'driver'
 
 	},
 
@@ -26,6 +27,9 @@ export default new Vuex.Store({
 	    },
 	    setArchiveM(state, payload) {
 	    	state.archive = payload
+	    },
+	    setCurrentRoleM(state, payload) {
+	    	state.currentRole = payload
 	    }
 	},
 
@@ -35,8 +39,12 @@ export default new Vuex.Store({
 		},
 		setArchive(context,payload) {
 			context.commit('setArchiveM', payload)
-			console.log(payload)
-		}
+			console.log("archive state: " + payload)
+		},
+		setCurrentRole(context,payload) {
+			context.commit('setCurrentRoleM', payload)
+			console.log("cuurent role: " + payload)
+		},
 	},
 
 	getters: {
@@ -45,7 +53,7 @@ export default new Vuex.Store({
 		},
 		getStaff(state) {
 			return state.staff.filter(function(item){
-				return item.isArchive==state.archive
+				return item.isArchive==state.archive && item.role==state.currentRole
 			})
 		},
 		getTest(state) {
@@ -56,6 +64,9 @@ export default new Vuex.Store({
 
 		getArchive(state) {
 			return state.archive
+		},
+		getCurrentRole(state) {
+			return state.currentRole
 		}
 	}
 })

@@ -3,18 +3,19 @@
 
     <div class="container">
 
-      {{selectTest}}
       <div class="filter">
 
         <div class="row">
           <div class="col-md-3">
             <select class="custom-select filter_role"
+            v-model="roleSelect"
             >
-              <option value="1"
+              <option v-bind:value="role.dbtitle"
               v-for="role of selectRoles"
               :key="role.dbtitle"
               >{{role.title}}</option>
             </select>
+
           </div>
           
           <div class="col-md-3">
@@ -30,7 +31,7 @@
 
           <div class="col-md-3">
             <div class="filter_addbutton">
-              <button type="button" class="btn btn-success">Success</button>
+              <button type="button" class="btn btn-success">Добавить</button>
             </div>
           </div>
 
@@ -97,6 +98,14 @@ export default {
         this.$store.dispatch('setArchive', value)
       }
     },
+    roleSelect: {
+      get() {
+        return this.$store.getters.getCurrentRole
+      },
+      set(value){
+        this.$store.dispatch('setCurrentRole', value)
+      }
+    },
     selectTest() {
       return this.$store.getters.getTest
     }
@@ -123,5 +132,9 @@ html
     vertical-align: center
   &_addbutton
     text-align: right
+
+.stafftable
+  tr
+    transition: all 1s
 
 </style>
