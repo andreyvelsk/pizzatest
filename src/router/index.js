@@ -1,16 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Worker from '@/pages/Worker'
+import Main from './pages/Main'
+import Worker from './pages/Worker'
+
 
 Vue.use(Router)
 
-export default {
+export default new Router({
 	routes: [
 		{
-			path: '/worker/:id',
+			path: '/',
+			component: Main
+		},
+
+		{
+			path: '/worker:id',
 			component: Worker
 		}
 	],
 	mode: 'history'
-}
+})

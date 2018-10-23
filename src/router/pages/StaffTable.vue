@@ -12,16 +12,17 @@
           </thead>
           <tbody>
         
-            <tr
+            <router-link
+            tag="tr"
             v-for="(i, index) in selectStaff"
-            :to="'worker/'+i.index"
-            :key="i.index"
+            :to="'worker'+i.id"
+            :key="i.id"
             >
               <th scope="row">{{index+1}}</th>
               <td>{{i.name}}</td>
               <td>{{i.role}}</td>
               <td>{{i.birthday}}</td>
-            </tr>
+            </router-link>
         
           </tbody>
         </table>
