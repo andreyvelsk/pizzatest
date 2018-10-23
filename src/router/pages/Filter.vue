@@ -68,10 +68,6 @@
 	      set(value){
 	        this.$store.dispatch('setCurrentRole', value)
 	      }
-	    },
-	    selectTest() {
-
-	      return this.$store.getters.getTest
 	    }
 	  }
 	}

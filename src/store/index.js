@@ -15,17 +15,12 @@ export default new Vuex.Store({
 			{title: 'Водитель', dbtitle: 'driver'}
 		],
 		staff: [],
-		test: [
-			{title: 'Повар', dbtitle: 'cook'},
-			{title: 'Официант', dbtitle: 'waiter'},
-			{title: 'Водитель', dbtitle: 'driver'}
-		],
 		sort: [
 			{title: 'Имя', value: true},
 			{title: 'Дата', value: false},
 		],
-		archive: true,
-		currentRole: 'waiter',
+		archive: false,
+		currentRole: 'cook',
 		sortByName: true,
 		ascSort: true
 	},
@@ -113,11 +108,6 @@ export default new Vuex.Store({
 				result.reverse()
 
 			return result
-		},
-		getTest(state,getters) {
-
-			return getters.getStaff
-
 		},
 
 		getArchive(state) {
