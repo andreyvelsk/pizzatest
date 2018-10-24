@@ -6,17 +6,17 @@
 			  		<div class="form-group">
 		
 							<label for="name">ФИО</label>
-			  			<input id="phone" class="form-control" placeholder="Иванов Иван" :value="worker.name">
+			  			<input id="phone" class="form-control" placeholder="Иванов Иван" v-model="worker.name">
 		
 			  				<div class="row">
 			  					<div class="col-md-6">
 			  						<label for="phone">Телефон</label>
-			  						<input id="phone" type="tel" v-mask="'+7 (###) ###-####'" class="form-control" placeholder="+7 (123) 456-7890" :value="worker.phone">
+			  						<input id="phone" type="tel" v-mask="'+7 (###) ###-####'" class="form-control" placeholder="+7 (123) 456-7890" v-model="worker.phone">
 			  					</div>
 			  					
 			  					<div class="col-md-6">
 			  						<label for="birthday">Дата рождения</label>
-			  						<input type="tel" v-mask="'##.##.####'" class="form-control" placeholder="01.01.1900" :value="worker.birthday">
+			  						<input type="tel" v-mask="'##.##.####'" class="form-control" placeholder="01.01.1900" v-model="worker.birthday">
 			  					</div>
 			  				</div>
 		
@@ -53,7 +53,7 @@
 			  		</div>
   				</form>
   				{{worker}}
-  				{{id}}
+  				{{this.$store.state.staff}}
   			</div>
 
   			<div v-if="isError"><h1>Произошла ошибка</h1></div>
@@ -77,7 +77,7 @@ export default {
 
   		//this.resource.save({}, this.worker)
   		
-  		//this.$store.dispatch('updateStaff', this.worker)
+  		this.$store.dispatch('updateStaff', this.worker)
   	}
   },
   computed: {
@@ -99,6 +99,14 @@ export default {
 
 	created() {
       console.log("Worker edit created")
+
+      	function cloneObject(obj) {
+		  var clone = {};
+		  Object.keys(obj).forEach(function(key) {
+		    clone[key] = obj[key];
+		  });
+		  return clone;
+		}
 	    //запись из api to vuex
 	    if(this.$store.state.staff.length == 0){
 	    	console.log("staff is empty. load staff from api")
@@ -106,10 +114,10 @@ export default {
 		    this.resource = this.$resource('staff')
 		    this.resource.get().then(response => response.json())
 		    .then(staff => this.$store.dispatch('assyncSetStaff', staff)
-		    	.then(this.worker=this.getWorkerById[0]))
+		    	.then(this.worker=cloneObject(this.getWorkerById[0])))
 	  	}
 	  	else{
-	  		this.worker=this.getWorkerById[0]
+	  		this.worker=cloneObject(this.getWorkerById[0])
 	  	}
 	    
 	},

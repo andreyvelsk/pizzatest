@@ -26,8 +26,11 @@
         
           </tbody>
         </table>
-      </div>
+        {{this.$store.state.staff}}
+  </div>
       <!-- /.stafftable -->
+
+
 </template>
 
 <script>
@@ -48,7 +51,7 @@
         .then(staff => this.$store.dispatch('assyncSetStaff', staff))
       }
 
-	  	}
+	  }
 	}
 </script>
 

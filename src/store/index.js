@@ -5,6 +5,7 @@ import staff from './staff'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+	strict: true,
 	modules: {
 		//staff
 	},
@@ -48,8 +49,11 @@ export default new Vuex.Store({
 	    },
 
 	    updateStaffM(state, payload) {
-			    let item = state.staff.find(x => x.id === payload.id)
-			    item = payload			   
+
+		    let item = state.staff.findIndex(x => x.id === payload.id) //индекс обьекта в staff 
+		    Object.keys(payload).forEach(function(key) {			//копируем по свойствам
+			    state.staff[item][key] = payload[key];
+			})
 	    }
 	},
 
