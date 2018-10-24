@@ -17,7 +17,7 @@ export default new Vuex.Store({
 		staff: [],
 		sort: [
 			{title: 'Имя', value: true},
-			{title: 'Дата', value: false},
+			{title: 'Дата рождения', value: false},
 		],
 		archive: false,
 		currentRole: 'cook',
@@ -130,7 +130,13 @@ export default new Vuex.Store({
 
 		getCurrentSort (state) {
 			return state.sortByName
-		}
+		},
+
+		getWorker(state) {
+      return keyword => state.staff.filter(item =>{
+        return item.id == keyword
+      });
+    }
 
 
 	}

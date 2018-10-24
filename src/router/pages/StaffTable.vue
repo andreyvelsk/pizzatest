@@ -38,11 +38,16 @@
       }
    	},
 	  created() {
-      console.log("created")
+      console.log("Staff table created")
 	    //запись из api to vuex
-	    this.resource = this.$resource('staff')
-	    this.resource.get().then(response => response.json())
-	    .then(staff => this.$store.dispatch('assyncSetStaff', staff))
+	    if(this.$store.state.staff.length == 0){
+        console.log("staff is empty. load staff from api")
+
+        this.resource = this.$resource('staff')
+        this.resource.get().then(response => response.json())
+        .then(staff => this.$store.dispatch('assyncSetStaff', staff))
+      }
+
 	  	}
 	}
 </script>
