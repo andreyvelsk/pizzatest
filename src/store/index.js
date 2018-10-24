@@ -51,6 +51,7 @@ export default new Vuex.Store({
 	    updateStaffM(state, payload) {
 
 		    let item = state.staff.findIndex(x => x.id === payload.id) //индекс обьекта в staff 
+		    
 		    Object.keys(payload).forEach(function(key) {			//копируем по свойствам
 			    state.staff[item][key] = payload[key];
 			})
@@ -59,7 +60,7 @@ export default new Vuex.Store({
 	    	console.log("addWorker")
 	    	console.log(payload)
 	    	var tmp = {}
-	    	Object.keys(payload).forEach(function(key) {			//копируем по свойствам
+	    	Object.keys(payload).forEach(function(key) {			
 			    tmp[key] = payload[key];
 			})
 

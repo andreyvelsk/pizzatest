@@ -115,15 +115,12 @@ export default {
 		    this.resource = this.$resource('staff')
 		    this.resource.get().then(response => response.json())
 		    .then(staff => this.$store.dispatch('assyncSetStaff', staff)
-		    	.then(this.worker=cloneObject(this.getWorkerById[0])))
+		    	.then(this.worker=cloneObject(this.getWorkerById[0])))	//копируем обьект с id из state.staff в worker
 	  	}
 	  	else{
 	  		this.worker=cloneObject(this.getWorkerById[0])
 	  	}
 	    
-	},
-	mounted() {
-
 	}
 	  
 }
