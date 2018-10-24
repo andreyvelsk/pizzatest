@@ -45,7 +45,7 @@ export default new Vuex.Store({
 	    },
 	    setCurrentSortM(state, payload) {
 	    	state.sortByName = payload
-	    	console.log("current sort: " + payload)
+	    	console.log("sortByName: " + payload)
 	    },
 
 	    updateStaffM(state, payload) {
@@ -54,6 +54,12 @@ export default new Vuex.Store({
 		    Object.keys(payload).forEach(function(key) {			//копируем по свойствам
 			    state.staff[item][key] = payload[key];
 			})
+	    },
+	    addWorkerM(state, payload) {
+	    	console.log("addWorker")
+	    	console.log(payload)
+
+	    	state.staff.push(payload)
 	    }
 	},
 
@@ -78,6 +84,9 @@ export default new Vuex.Store({
 		},
 		updateStaff(context, payload) {
 			context.commit('updateStaffM', payload)
+		},
+		addWorker(context, payload) {
+			context.commit('addWorkerM', payload)
 		}
 	},
 
@@ -122,33 +131,11 @@ export default new Vuex.Store({
 			return result
 		},
 
-		getArchive(state) {
-			return state.archive
-		},
-		getRoles(state) {
-			return state.roles
-		},
-		getCurrentRole(state) {
-			return state.currentRole
-		},
-
-		getAscSort(state) {
-			return state.ascSort
-		},
-
-		getSorts(state) {
-			return state.sort
-		},
-
-		getCurrentSort (state) {
-			return state.sortByName
-		},
-
 		getWorker(state) {
-      return keyword => state.staff.filter(item =>{
-        return item.id == keyword
-      });
-    }
+	      return keyword => state.staff.filter(item =>{
+	        return item.id == keyword
+	      });
+    	}
 
 
 	}

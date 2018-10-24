@@ -1,7 +1,7 @@
 <template>
-  <div id="worker">
+  <div id="workeradd">
   	<div class="container">
-  			<div class="workeredit" v-if="!isError">
+  			<div class="workeredit">
   				<form>
 			  		<div class="form-group">
 		
@@ -45,7 +45,7 @@
 
 					          	<div class="col-md-3 col-6 workeredit_save">
 						            <div class="filter_addbutton">
-						              <button type="button" class="btn btn-success" @click="updateWorker">Сохранить</button>
+						              <button type="button" class="btn btn-success" @click="addWorker">Сохранить</button>
 						            </div>
 			          			</div>
 							</div>
@@ -54,7 +54,9 @@
   				</form>
   			</div>
 
-  			<div v-if="isError"><h1>Произошла ошибка</h1></div>
+  			{{worker}}
+  			<br>
+  			{{this.$store.state.staff}}
   	</div>
   </div>
 </template>
@@ -63,67 +65,40 @@
 export default {
   data () {
     return {
-      id: this.$router.currentRoute.params['id'],
-      worker: {},
-      isError: false
+      worker: {
+		id: 999,
+		name: '',
+		isArchive: false,
+		role: 'cook',
+		phone: '',
+		birthday: ''
+      },
     }
   },
   methods: {
-  	updateWorker() {
-  		
-  		if(this.$store.dispatch('updateStaff', this.worker)){
-  			console.log("dispatch updateStaff: true")
-  			alert("Данные обновлены")
+  	addWorker() {
+  		this.worker.id=this.$store.state.staff.length+1
+  		if(this.$store.dispatch('addWorker', this.worker)){
+  			console.log("dispatch addWorker: true")
+  			alert("Данные добавлены")
   		}
   		else{
-  			console.log("dispatch updateStaff: false")
-  			alert("Ошибка при обновлении")
+  			console.log("dispatch addWorker: false")
+  			alert("Ошибка при добавлении")
   		}
+  		
   	}
   },
   computed: {
 
 	  selectRoles() {
 	      return this.$store.state.roles
-	    },
-	  getWorkerById() {
-	  	let result = this.$store.getters.getWorker(this.id)
-	  	if (result.length > 0)
-	  		return result
-	  	else {
-	  		console.log("no worker id")
-	  		this.isError=true
-	  		return "no worker"
-	  	}
-	  }
+	    }
 	},
 
 	created() {
-      console.log("Worker edit created")
-
-      	function cloneObject(obj) {
-		  var clone = {};
-		  Object.keys(obj).forEach(function(key) {
-		    clone[key] = obj[key];
-		  });
-		  return clone;
-		}
-	    //запись из api to vuex
-	    if(this.$store.state.staff.length == 0){
-	    	console.log("staff is empty. load staff from api")
-
-		    this.resource = this.$resource('staff')
-		    this.resource.get().then(response => response.json())
-		    .then(staff => this.$store.dispatch('assyncSetStaff', staff)
-		    	.then(this.worker=cloneObject(this.getWorkerById[0])))
-	  	}
-	  	else{
-	  		this.worker=cloneObject(this.getWorkerById[0])
-	  	}
+      console.log("Worker add created")
 	    
-	},
-	mounted() {
-
 	}
 	  
 }

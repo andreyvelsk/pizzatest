@@ -28,7 +28,11 @@
 
           <div class="col-md-3">
             <div class="filter_addbutton">
-              <button type="button" class="btn btn-success">Добавить</button>
+            <router-link
+              tag="button"
+              :to="'addworker'"
+              class="btn btn-success">Добавить
+            </router-link>
             </div>
           </div>
 
@@ -51,11 +55,11 @@
 	  computed: {
 
 	    selectRoles() {
-	      return this.$store.getters.getRoles
+	      return this.$store.state.roles
 	    },
 	    archiveCheckbox: {
 	      get() {
-	        return this.$store.getters.getArchive
+	        return this.$store.state.archive
 	      },
 	      set(value) {
 	        this.$store.dispatch('setArchive', value)
@@ -63,7 +67,7 @@
 	    },
 	    roleSelect: {
 	      get() {
-	        return this.$store.getters.getCurrentRole
+	        return this.$store.state.currentRole
 	      },
 	      set(value){
 	        this.$store.dispatch('setCurrentRole', value)

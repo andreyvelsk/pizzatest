@@ -26,11 +26,8 @@
         
           </tbody>
         </table>
-        {{this.$store.state.staff}}
   </div>
       <!-- /.stafftable -->
-
-
 </template>
 
 <script>

@@ -33,7 +33,7 @@
 
 	    ascCheckbox: {
 	      get() {
-	        return this.$store.getters.getAscSort
+	        return this.$store.state.ascSort
 	      },
 	      set(value) {
 	        this.$store.dispatch('setAscSort', value)
@@ -41,14 +41,14 @@
 	    },
 	    sortSelect: {
 	    	get() {
-	        return this.$store.getters.getCurrentSort
+	        return this.$store.state.sortByName
 	      },
 	      set(value) {
 	        this.$store.dispatch('setCurrentSort', value)
 	      }
 	    },
 	    selectSort() {
-	      return this.$store.getters.getSorts
+	      return this.$store.state.sort
 	    }
 	  }
 	}
