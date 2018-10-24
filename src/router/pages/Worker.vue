@@ -6,17 +6,17 @@
 			  		<div class="form-group">
 		
 							<label for="name">ФИО</label>
-			  			<input id="phone" class="form-control" placeholder="Иванов Иван" v-model="worker.name">
+			  			<input id="phone" class="form-control" placeholder="Иванов Иван" :value="worker.name">
 		
 			  				<div class="row">
 			  					<div class="col-md-6">
 			  						<label for="phone">Телефон</label>
-			  						<input id="phone" type="tel" v-mask="'+7 (###) ###-####'" class="form-control" placeholder="+7 (123) 456-7890" v-model="worker.phone">
+			  						<input id="phone" type="tel" v-mask="'+7 (###) ###-####'" class="form-control" placeholder="+7 (123) 456-7890" :value="worker.phone">
 			  					</div>
 			  					
 			  					<div class="col-md-6">
 			  						<label for="birthday">Дата рождения</label>
-			  						<input type="tel" v-mask="'##.##.####'" class="form-control" placeholder="01.01.1900" v-bind:value="worker.birthday">
+			  						<input type="tel" v-mask="'##.##.####'" class="form-control" placeholder="01.01.1900" :value="worker.birthday">
 			  					</div>
 			  				</div>
 		
@@ -45,7 +45,7 @@
 
 		          	<div class="col-md-3 col-6 workeredit_save">
 			            <div class="filter_addbutton">
-			              <button type="button" class="btn btn-success" @click="createWorker">Сохранить</button>
+			              <button type="button" class="btn btn-success" @click="updateWorker">Сохранить</button>
 			            </div>
           			</div>
 							</div>
@@ -72,12 +72,12 @@ export default {
     }
   },
   methods: {
-  	createWorker() {
-  		console.log("createWorker")
+  	updateWorker() {
+  		console.log("updateWorker")
 
   		//this.resource.save({}, this.worker)
-
-  		this.$store.state.staff.push(this.worker)
+  		
+  		//this.$store.dispatch('updateStaff', this.worker)
   	}
   },
   computed: {

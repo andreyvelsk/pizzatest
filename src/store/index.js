@@ -45,6 +45,11 @@ export default new Vuex.Store({
 	    setCurrentSortM(state, payload) {
 	    	state.sortByName = payload
 	    	console.log("current sort: " + payload)
+	    },
+
+	    updateStaffM(state, payload) {
+			    let item = state.staff.find(x => x.id === payload.id)
+			    item = payload			   
 	    }
 	},
 
@@ -66,6 +71,9 @@ export default new Vuex.Store({
 		},
 		setCurrentSort(context, payload) {
 			context.commit('setCurrentSortM', payload)
+		},
+		updateStaff(context, payload) {
+			context.commit('updateStaffM', payload)
 		}
 	},
 
