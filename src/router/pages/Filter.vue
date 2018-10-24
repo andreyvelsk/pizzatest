@@ -1,8 +1,9 @@
 <template>
 	<div class="filter">
 
-        <div class="row">
-          <div class="col-md-3">
+        <div class="row align-items-end">
+          <div class="col-md-5">
+          	<label>Фильтр</label>
             <select class="custom-select filter_role"
             v-model="roleSelect"
             >
@@ -15,7 +16,7 @@
 
           </div>
           
-          <div class="col-md-3">
+          <div class="col-md-5">
             <div class="custom-control custom-checkbox filter_isarchive">
               <input type="checkbox" class="custom-control-input" id="archiveCheck"
               v-model="archiveCheckbox"
@@ -24,17 +25,7 @@
             </div>
           </div>
 
-          <div class="col-md-3"></div>
 
-          <div class="col-md-3">
-            <div class="filter_addbutton">
-            <router-link
-              tag="button"
-              :to="'addworker'"
-              class="btn btn-success">Добавить
-            </router-link>
-            </div>
-          </div>
 
         </div>
 
@@ -82,8 +73,6 @@
 .filter
   padding: 50px 0 15px 0
   &_isarchive
-
-  &_addbutton
-    text-align: right
+  	padding-top: 10px
 
 </style>

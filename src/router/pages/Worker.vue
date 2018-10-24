@@ -128,8 +128,9 @@ export default {
 
 <style lang="sass">
 	.workeredit
-		&_archive
+		padding-top: 50px
 		&_save
+			padding-top: 10px
 			text-align: right
 
 </style>

@@ -53,10 +53,6 @@
 			  		</div>
   				</form>
   			</div>
-
-  			{{worker}}
-  			<br>
-  			{{this.$store.state.staff}}
   	</div>
   </div>
 </template>
@@ -109,5 +105,7 @@ export default {
 		&_archive
 		&_save
 			text-align: right
+		.row
+			padding-top: 10px
 
 </style>

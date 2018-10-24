@@ -1,6 +1,5 @@
 <template>
 	<div class="stafftable">
-
         <table class="table">
           <thead>
             <tr>
@@ -52,6 +51,8 @@
 	}
 </script>
 
-<style>
-	
+<style lang="sass">
+    .stafftable
+      overflow-y: hidden
+      padding-top: 20px
 </style>
