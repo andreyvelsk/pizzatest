@@ -58,8 +58,12 @@ export default new Vuex.Store({
 	    addWorkerM(state, payload) {
 	    	console.log("addWorker")
 	    	console.log(payload)
+	    	var tmp = {}
+	    	Object.keys(payload).forEach(function(key) {			//копируем по свойствам
+			    tmp[key] = payload[key];
+			})
 
-	    	state.staff.push(payload)
+	    	state.staff.push(tmp)
 	    }
 	},
 
