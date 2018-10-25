@@ -1,8 +1,12 @@
 <template>
 
     <div class="container">
+      <div class="pagetitle">
+        <h1>Главная</h1>
+      </div>
 
       <staff-filter>  </staff-filter>
+      <hr>
       <staff-sort> </staff-sort>
       
       <staff-table> </staff-table>
@@ -27,5 +31,6 @@ export default {
 </script>
 
 <style lang="sass">
-
+.pagetitle
+  padding: 20px 0  
 </style>

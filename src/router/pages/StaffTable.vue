@@ -19,35 +19,34 @@
             >
               <th scope="row">{{index+1}}</th>
               <td>{{i.name}}</td>
-              <td>{{i.role}}</td>
-              <td>{{i.birthday}}</td>
+              <td>{{getRole(i.role)}}
+              </td>
+              <td>{{i.phone}}</td>
+
             </router-link>
         
           </tbody>
         </table>
+
   </div>
       <!-- /.stafftable -->
 </template>
 
+
 <script>
 	export default {
+    methods: {
+      getRole(dbrole) {
+        return this.$store.state.roles.filter(item =>{
+          return item.dbtitle == dbrole
+        })[0].title
+      }
+    },
 		computed: {
 			selectStaff() {
-      return this.$store.getters.getStaff
+        return this.$store.getters.getStaff
       }
-   	},
-	  created() {
-      console.log("Staff table created")
-	    //запись из api to vuex
-	    if(this.$store.state.staff.length == 0){
-        console.log("staff is empty. load staff from api")
-
-        this.resource = this.$resource('staff')
-        this.resource.get().then(response => response.json())
-        .then(staff => this.$store.dispatch('assyncSetStaff', staff))
-      }
-
-	  }
+   	}
 	}
 </script>
 

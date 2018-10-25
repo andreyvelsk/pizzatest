@@ -17,10 +17,8 @@ Vue.use(VueResource)
 Vue.use(VueTheMask)
 Vue.use(Vuelidate)
 
-Vue.http.options.root = "http://localhost:3000/"
-Vue.http.interceptors.push(request => {
-	request.headers.set('Auth', 'rand token'+Math.random())
-})
+
+Vue.http.options.root = "http://localhost:3000/" //адрес api
 
 new Vue({
   el: '#app',

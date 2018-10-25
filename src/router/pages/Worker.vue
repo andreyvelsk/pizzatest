@@ -1,6 +1,9 @@
 <template>
   <div id="worker">
   	<div class="container">
+  		<div class="pagetitle">
+  			<h1>Изменить сотрудника</h1>
+  		</div>
   			<div class="workeredit" v-if="!isError">
   				<form>
 			  		<div class="form-group">
@@ -12,34 +15,39 @@
 			  			>
 			  			<div class="invalid-feedback" v-if="!$v.worker.name.required">Поле является обязательным</div>
 		
-			  				<div class="row">
-			  					<div class="col-md-6">
-			  						<label for="phone">Телефон *</label>
-			  						<input id="phone" type="tel" v-mask="'+7 (###) ###-####'" class="form-control" 
-			  						placeholder="+7 (123) 456-7890" 
-			  						v-model="worker.phone"
-			  						@blur="$v.worker.phone.$touch"
-						  			:class="{'is-invalid': $v.worker.phone.$error}"
-						  			>
-			  						<div class="invalid-feedback" v-if="!$v.worker.phone.minLength">Неккоректный номер телефона</div>
-			  						<div class="invalid-feedback" v-if="!$v.worker.phone.required">Поле является обязательным</div>
-			  					</div>
-			  					
-			  					<div class="col-md-6">
-			  						<label for="birthday">Дата рождения *</label>
-			  						<input type="tel" v-mask="'##.##.####'" class="form-control" 
-			  						placeholder="01.01.1900" 
-			  						v-model="worker.birthday"
-			  						@blur="$v.worker.birthday.$touch"
-						  			:class="{'is-invalid': $v.worker.birthday.$error}"
-			  						>
-			  						<div class="invalid-feedback" v-if="!$v.worker.birthday.minLength">Неккоректная дата</div>
-			  						<div class="invalid-feedback" v-if="!$v.worker.birthday.required">Поле является обязательным</div>
-			  					</div>
-			  				</div>
+		  				<div class="row">
+		  					<div class="col-md-6">
+
+		  						<label for="phone">Телефон *</label>
+		  						<input id="phone" type="tel" v-mask="'+7 (###) ###-####'" class="form-control" 
+		  						placeholder="+7 (123) 456-7890" 
+		  						v-model="worker.phone"
+		  						@blur="$v.worker.phone.$touch"
+					  			:class="{'is-invalid': $v.worker.phone.$error}"
+					  			>
+
+		  						<div class="invalid-feedback" v-if="!$v.worker.phone.minLength">Неккоректный номер телефона</div>
+		  						<div class="invalid-feedback" v-if="!$v.worker.phone.required">Поле является обязательным</div>
+		  					</div>
+		  					
+		  					<div class="col-md-6">
+
+		  						<label for="birthday">Дата рождения *</label>
+		  						<input type="tel" v-mask="'##.##.####'" class="form-control" 
+		  						placeholder="01.01.1900" 
+		  						v-model="worker.birthday"
+		  						@blur="$v.worker.birthday.$touch"
+					  			:class="{'is-invalid': $v.worker.birthday.$error}"
+		  						>
+
+		  						<div class="invalid-feedback" v-if="!$v.worker.birthday.minLength">Неккоректная дата</div>
+		  						<div class="invalid-feedback" v-if="!$v.worker.birthday.required">Поле является обязательным</div>
+		  					</div>
+		  				</div>
 		
 							<div class="row align-items-end">
 								<div class="col-md-6">
+
 									<label>Должность</label>
 									<select class="custom-select filter_role"
 									v-model="worker.role"
@@ -50,25 +58,32 @@
 										:key="role.dbtitle"
 										>{{role.title}}
 										</option>
+
 									</select>
 								</div>
-								<div class="col-md-3 col-6 workeredit_archive">
-						            <div class="custom-control custom-checkbox">
-						              <input type="checkbox" class="custom-control-input" id="archiveCheck"
-						              v-model="worker.isArchive"
-						              >
-						              <label class="custom-control-label" for="archiveCheck">В архиве</label>
-						            </div>
-		          				</div>
 
-					          	<div class="col-md-3 col-6 workeredit_save">
-						            <div class="filter_addbutton">
-						              <button type="button" class="btn btn-success" 
-						              @click="updateWorker"
-						              :disabled="$v.$invalid"
-						              >Сохранить</button>
-						            </div>
-			          			</div>
+								<div class="col-md-3 col-6 workeredit_archive">
+			            <div class="custom-control custom-checkbox">
+
+			              <input type="checkbox" class="custom-control-input" id="archiveCheck"
+			              v-model="worker.isArchive"
+			              >
+			              <label class="custom-control-label" for="archiveCheck">В архиве</label>
+
+			            </div>
+		          	</div>
+
+		          	<div class="col-md-3 col-6 workeredit_save">
+			            <div class="filter_addbutton">
+			              <button type="button" class="btn btn-success" 
+			              @click="updateWorker"
+			              :disabled="$v.$invalid"
+			              >
+			              Сохранить
+			            	</button>
+			            </div>
+          			</div>
+
 							</div>
 		
 			  		</div>
@@ -138,19 +153,20 @@ export default {
 	  }
 	},
 
-	created() {
+	mounted() {
       console.log("Worker edit created")
 
-      	function cloneObject(obj) {
-		  var clone = {};
-		  Object.keys(obj).forEach(function(key) {
-		    clone[key] = obj[key];
-		  });
-		  return clone;
-		}
-	    //запись из api to vuex
+	    function cloneObject(obj) {
+			  var clone = {};
+			  Object.keys(obj).forEach(function(key) {
+			    clone[key] = obj[key];
+			  });
+			  return clone;
+			}
+
 	    if(this.$store.state.staff.length == 0){
 	    	console.log("staff is empty. load staff from api")
+	    	console.log(this.$store.state.staff)
 
 		    this.resource = this.$resource('staff')
 		    this.resource.get().then(response => response.json())
@@ -168,7 +184,6 @@ export default {
 
 <style lang="sass">
 	.workeredit
-		padding-top: 50px
 		&_save
 			padding-top: 10px
 			text-align: right

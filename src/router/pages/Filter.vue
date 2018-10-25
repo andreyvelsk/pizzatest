@@ -24,12 +24,8 @@
               <label class="custom-control-label" for="archiveCheck">В архиве</label>
             </div>
           </div>
-
-
-
         </div>
-
-      </div>
+  </div>
       <!-- /.filter -->
 </template>
 
@@ -71,8 +67,7 @@
 <style lang="sass">
 
 .filter
-  padding: 50px 0 15px 0
-  &_isarchive
-  	padding-top: 10px
+	&_isarchive
+		padding-top: 10px
 
 </style>

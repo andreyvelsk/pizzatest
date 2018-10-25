@@ -1,14 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import staff from './staff'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-	strict: true,
-	modules: {
-		//staff
-	},
+
 	state: {
 		roles: [
 			{title: 'Повар', dbtitle: 'cook'},
@@ -54,15 +50,14 @@ export default new Vuex.Store({
 		    
 		    Object.keys(payload).forEach(function(key) {			//копируем по свойствам
 			    state.staff[item][key] = payload[key];
-			})
+				})
 	    },
 	    addWorkerM(state, payload) {
 	    	console.log("addWorker")
-	    	console.log(payload)
 	    	var tmp = {}
 	    	Object.keys(payload).forEach(function(key) {			
 			    tmp[key] = payload[key];
-			})
+				})
 
 	    	state.staff.push(tmp)
 	    }
@@ -71,15 +66,12 @@ export default new Vuex.Store({
     actions: {
 		assyncSetStaff(context, payload) {
 			context.commit('setStaffFromApi', payload)
-
 		},
 		setArchive(context,payload) {
-			context.commit('setArchiveM', payload)
-			
+			context.commit('setArchiveM', payload)			
 		},
 		setCurrentRole(context,payload) {
-			context.commit('setCurrentRoleM', payload)
-			
+			context.commit('setCurrentRoleM', payload)			
 		},
 		setAscSort (context, payload) {
 			context.commit('setAscSortM', payload)
@@ -139,8 +131,8 @@ export default new Vuex.Store({
 		getWorker(state) {
 	      return keyword => state.staff.filter(item =>{
 	        return item.id == keyword
-	      });
-    	}
+	      })
+    }
 
 
 	}
