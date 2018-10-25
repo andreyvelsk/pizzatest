@@ -13,6 +13,7 @@
         
             <router-link
             tag="tr"
+            class="stafftable_row"
             v-for="(i, index) in selectStaff"
             :to="'worker'+i.id"
             :key="i.id"
@@ -54,4 +55,10 @@
     .stafftable
       overflow-y: hidden
       padding-top: 20px
+      &_row
+        &:hover
+          cursor: pointer
+          background-color: #eee
+          transition: all 0.2s
+
 </style>

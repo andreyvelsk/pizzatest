@@ -4,26 +4,26 @@
 			<div class="col-md-5">
 				<label>Сортировка</label>
 				<select class="custom-select sort_by"
-	            v-model="sortSelect"
-	            >
-              <option 
-              v-for="sort of selectSort"
-              v-bind:value="sort.value"
-              :key="sort.title"
-              >{{sort.title}}</option>
-            </select>
+	        v-model="sortSelect"
+	        >
+	        <option 
+	        v-for="sort of selectSort"
+	        v-bind:value="sort.value"
+	        :key="sort.title"
+	        >{{sort.title}}</option>
+	      </select>
 			</div>
 
 			<div class="col-md-3">
-	            <div class="custom-control custom-checkbox sort_asc">
-	              <input type="checkbox" class="custom-control-input" id="ascCheck"
-	              v-model="ascCheckbox"
-	              >
-	              <label class="custom-control-label" for="ascCheck">По возрастанию</label>
-	            </div>
-      		</div>
+        <div class="custom-control custom-checkbox sort_asc">
+          <input type="checkbox" class="custom-control-input" id="ascCheck"
+          v-model="ascCheckbox"
+          >
+          <label class="custom-control-label" for="ascCheck">По возрастанию</label>
+        </div>
+      </div>
 
-      		<div class="col-md-1"></div>
+  		<div class="col-md-1"></div>
 
 			<div class="col-md-3">
 				<div class="sort_addbutton">
