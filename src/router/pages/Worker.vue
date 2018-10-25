@@ -6,7 +6,7 @@
 			  		<div class="form-group">
 		
 						<label for="name">ФИО</label>
-			  			<input id="phone" class="form-control" placeholder="Иванов Иван" v-model="worker.name">
+			  			<input id="name" class="form-control" placeholder="Иванов Иван" v-model="worker.name">
 		
 			  				<div class="row">
 			  					<div class="col-md-6">
@@ -132,5 +132,7 @@ export default {
 		&_save
 			padding-top: 10px
 			text-align: right
+		.row
+			padding-top: 10px
 
 </style>

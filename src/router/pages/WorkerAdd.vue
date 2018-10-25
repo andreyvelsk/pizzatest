@@ -1,22 +1,39 @@
 <template>
   <div id="workeradd">
   	<div class="container">
-  			<div class="workeredit">
+  			<div class="workeradd">
   				<form>
 			  		<div class="form-group">
 		
-						<label for="name">ФИО</label>
-			  			<input id="phone" class="form-control" placeholder="Иванов Иван" v-model="worker.name">
+							<label for="name">Имя *</label>
+			  			<input id="name" class="form-control" placeholder="Иванов Иван" 
+			  			v-model="$v.worker.name.$model"
+			  			:class="{'is-invalid': $v.worker.name.$error}"
+			  			>
+			  			<div class="invalid-feedback" v-if="!$v.worker.name.required">Поле является обязательным</div>
 		
 			  				<div class="row">
 			  					<div class="col-md-6">
-			  						<label for="phone">Телефон</label>
-			  						<input id="phone" type="tel" v-mask="'+7 (###) ###-####'" class="form-control" placeholder="+7 (123) 456-7890" v-model="worker.phone">
+			  						<label for="phone">Телефон *</label>
+			  						<input id="phone" type="tel" v-mask="'+7 (###) ###-####'" class="form-control" 
+			  						placeholder="+7 (123) 456-7890" 
+			  						v-model="worker.phone"
+			  						@blur="$v.worker.phone.$touch"
+						  			:class="{'is-invalid': $v.worker.phone.$error}"
+						  			>
+			  						<div class="invalid-feedback" v-if="!$v.worker.phone.minLength">Неккоректный номер телефона</div>
+			  						<div class="invalid-feedback" v-if="!$v.worker.phone.required">Поле является обязательным</div>
 			  					</div>
 			  					
 			  					<div class="col-md-6">
-			  						<label for="birthday">Дата рождения</label>
-			  						<input type="tel" v-mask="'##.##.####'" class="form-control" placeholder="01.01.1900" v-model="worker.birthday">
+			  						<label for="birthday">Дата рождения *</label>
+			  						<input type="tel" v-mask="'##.##.####'" class="form-control" placeholder="01.01.1900"
+			  						v-model="worker.birthday"
+			  						@blur="$v.worker.birthday.$touch"
+						  			:class="{'is-invalid': $v.worker.birthday.$error}"
+			  						>
+			  						<div class="invalid-feedback" v-if="!$v.worker.birthday.minLength">Неккоректная дата</div>
+			  						<div class="invalid-feedback" v-if="!$v.worker.birthday.required">Поле является обязательным</div>
 			  					</div>
 			  				</div>
 		
@@ -43,33 +60,55 @@
 						            </div>
 		          				</div>
 
-					          	<div class="col-md-3 col-6 workeredit_save">
-						            <div class="filter_addbutton">
-						              <button type="button" class="btn btn-success" @click="addWorker">Сохранить</button>
-						            </div>
+					          	<div class="col-md-3 col-6 workeradd_save">
+						              <button type="button" class="btn btn-success" 
+						              @click="addWorker"
+						              :disabled="$v.$invalid"
+						              >Сохранить</button>
 			          			</div>
 							</div>
 		
 			  		</div>
   				</form>
+					
+					* - Обязательные поля
   			</div>
   	</div>
   </div>
 </template>
 
 <script>
+
+import { required, minLength } from 'vuelidate/lib/validators'
+
 export default {
   data () {
     return {
-      worker: {
-		id: 999,
-		name: '',
-		isArchive: false,
-		role: 'cook',
-		phone: '',
-		birthday: ''
-      },
+    	name: '',
+    	worker: {
+				id: 999,
+				name: '',
+				isArchive: false,
+				role: 'cook',
+				phone: '',
+				birthday: ''
+     },
     }
+  },
+  validations: {
+  	worker: {
+  		name: {
+  			required
+  		},
+  		phone: {
+  			required,
+  			minLength: minLength(17)
+  		},
+  		birthday: {
+  			required,
+  			minLength: minLength(10)
+  		}
+  	}
   },
   methods: {
   	addWorker() {
@@ -101,10 +140,12 @@ export default {
 </script>
 
 <style lang="sass">
-	.workeredit
+	.workeradd
+		padding-top: 50px
 		&_archive
 		&_save
 			text-align: right
+			padding-top: 10px
 		.row
 			padding-top: 10px
 
