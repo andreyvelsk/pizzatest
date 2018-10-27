@@ -40,7 +40,7 @@
 					  			:class="{'is-invalid': $v.worker.birthday.$error}"
 		  						>
 
-		  						<div class="invalid-feedback" v-if="!$v.worker.birthday.minLength">Неккоректная дата</div>
+		  						<div class="invalid-feedback" v-if="!$v.worker.birthday.minLength || !$v.worker.birthday.isDate">Неккоректная дата рождения</div>
 		  						<div class="invalid-feedback" v-if="!$v.worker.birthday.required">Поле является обязательным</div>
 		  					</div>
 		  				</div>
@@ -82,12 +82,25 @@
 					* - Обязательные поля
   			</div>
   	</div>
+
   </div>
+
 </template>
 
 <script>
 
 import { required, minLength } from 'vuelidate/lib/validators'
+
+const isDate = (value) => {
+
+	var pattern = /(\d{2})\.(\d{2})\.(\d{4})/
+	var date = new Date(value.replace(pattern,'$3-$2-$1')).getTime()
+	var startDate = new Date('1900-01-01').getTime()
+
+	if (!(isNaN(date)))
+		return (date < Date.now() && date > startDate)
+	else return false	
+}
 
 export default {
   data () {
@@ -114,7 +127,8 @@ export default {
   		},
   		birthday: {
   			required,
-  			minLength: minLength(10)
+  			minLength: minLength(10),
+  			isDate
   		}
   	}
   },
