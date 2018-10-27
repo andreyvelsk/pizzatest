@@ -40,8 +40,8 @@
 					  			:class="{'is-invalid': $v.worker.birthday.$error}"
 		  						>
 
-		  						<div class="invalid-feedback" v-if="!$v.worker.birthday.minLength">Неккоректная дата</div>
-		  						<div class="invalid-feedback" v-if="!$v.worker.birthday.required">Поле является обязательным</div>
+		  						<div class="invalid-feedback" v-if="!$v.worker.birthday.minLength || !$v.worker.birthday.isDate">Неккоректная дата рождения</div>
+
 		  					</div>
 		  				</div>
 		
@@ -93,12 +93,14 @@
   			</div>
 
   			<div v-if="isError"><h1>Произошла ошибка</h1></div>
+  			<pre>{{$v.worker.birthday}}</pre>
   	</div>
   </div>
 </template>
 
 <script>
-import { required, minLength } from 'vuelidate/lib/validators'
+	
+import VuelidateMixins from './vuelidateMixins.js'
 
 export default {
   data () {
@@ -108,21 +110,9 @@ export default {
       isError: false
     }
   },
-  validations: {
-  	worker: {
-  		name: {
-  			required
-  		},
-  		phone: {
-  			required,
-  			minLength: minLength(17)
-  		},
-  		birthday: {
-  			required,
-  			minLength: minLength(10)
-  		}
-  	}
-  },
+
+  mixins: [VuelidateMixins],
+
   methods: {
   	updateWorker() {
   		
@@ -140,7 +130,7 @@ export default {
 
 	  selectRoles() {
 	      return this.$store.state.roles
-	    },
+	  },
 	  getWorkerById() {
 	  	let result = this.$store.getters.getWorker(this.id)
 	  	if (result.length > 0)
@@ -162,7 +152,7 @@ export default {
 			    clone[key] = obj[key];
 			  });
 			  return clone;
-			}
+		}
 
 	    if(this.$store.state.staff.length == 0){
 	    	console.log("staff is empty. load staff from api")

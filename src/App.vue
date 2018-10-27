@@ -10,9 +10,7 @@
 <script>
   export default {
 
-    //загрузка данных из api
     created() {
-      console.log("Staff table created in App.vue")
       //запись из api to vuex
       if(this.$store.state.staff.length == 0){
         console.log("staff is empty. load staff from api App.vue")

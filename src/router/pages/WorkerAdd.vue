@@ -41,7 +41,6 @@
 		  						>
 
 		  						<div class="invalid-feedback" v-if="!$v.worker.birthday.minLength || !$v.worker.birthday.isDate">Неккоректная дата рождения</div>
-		  						<div class="invalid-feedback" v-if="!$v.worker.birthday.required">Поле является обязательным</div>
 		  					</div>
 		  				</div>
 		
@@ -81,6 +80,8 @@
 					
 					* - Обязательные поля
   			</div>
+
+  			
   	</div>
 
   </div>
@@ -89,23 +90,11 @@
 
 <script>
 
-import { required, minLength } from 'vuelidate/lib/validators'
-
-const isDate = (value) => {
-
-	var pattern = /(\d{2})\.(\d{2})\.(\d{4})/
-	var date = new Date(value.replace(pattern,'$3-$2-$1')).getTime()
-	var startDate = new Date('1900-01-01').getTime()
-
-	if (!(isNaN(date)))
-		return (date < Date.now() && date > startDate)
-	else return false	
-}
+import VuelidateMixins from './vuelidateMixins.js'
 
 export default {
   data () {
     return {
-    	name: '',
     	worker: {
 				id: 999,
 				name: '',
@@ -116,22 +105,8 @@ export default {
      },
     }
   },
-  validations: {
-  	worker: {
-  		name: {
-  			required
-  		},
-  		phone: {
-  			required,
-  			minLength: minLength(17)
-  		},
-  		birthday: {
-  			required,
-  			minLength: minLength(10),
-  			isDate
-  		}
-  	}
-  },
+  mixins: [VuelidateMixins],
+
   methods: {
   	addWorker() {
   		this.worker.id=this.$store.state.staff.length+1
@@ -147,7 +122,8 @@ export default {
   	}
   },
   computed: {
-	  selectRoles() {
+
+	 selectRoles() {
 	      return this.$store.state.roles
 	    }
 	},
