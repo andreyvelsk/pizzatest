@@ -93,7 +93,6 @@
   			</div>
 
   			<div v-if="isError"><h1>Произошла ошибка</h1></div>
-  			<pre>{{$v.worker.birthday}}</pre>
   	</div>
   </div>
 </template>
